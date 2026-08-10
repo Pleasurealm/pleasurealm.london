@@ -67,10 +67,26 @@ Kityamuwesi Kisubika** and **Pleasurealm Ltd** from online exposure using
 Serus to scan for each subject's exposed personal data — OSINT footprint,
 data-broker listings and dark-web breach hits — and records what it finds.
 
+**What it does each run:**
+
+- **Scans** each subject via Serus (OSINT, data-broker and dark-web).
+- **Monitors** for change: it diffs against the previous run and reports how many
+  exposures are **new**, how many were **resolved**, and — the important one — how
+  many previously-removed items have **reappeared** (a common data-broker
+  behaviour). New high/critical hits and any reappearance raise a GitHub Actions
+  warning and, if configured, a webhook alert.
+- **Tracks removal lifecycle** (`found → requested → in-progress → removed`) and,
+  when auto-remove is on, re-requests removal for anything still listed.
+- **Records a trend** — one aggregate point per day in
+  [`data/exposure-history.json`](data/exposure-history.json) so you can see
+  exposure going down over time.
+
 **Privacy-by-design (this repo is public):**
 
-- The only thing committed is [`data/exposure.json`](data/exposure.json), an
-  **aggregate**: counts, severities and categories. No names, emails, URLs or
+- The only things committed are aggregates: [`data/exposure.json`](data/exposure.json)
+  (counts, severities, categories, deltas), `data/exposure-history.json` (the
+  trend) and `data/exposure-state.json` (**irreversible SHA-256 fingerprints**
+  used purely for change detection). No names, emails, URLs, source sites or
   unmasked values ever land in the repo — the agent must not become the very
   exposure it exists to reduce.
 - Raw (masked) findings are uploaded as a **private, 7-day GitHub artifact**,
@@ -79,6 +95,7 @@ data-broker listings and dark-web breach hits — and records what it finds.
   **`SERUS_SUBJECTS_JSON`** secret and are merged in memory — never on disk. The
   committed [`data/serus-watch.json`](data/serus-watch.json) holds only
   already-public identifiers (legal name, company name, public domains).
+- Any webhook alert body is aggregate-only (counts + severities), never PII.
 
 **Setup:**
 
@@ -90,6 +107,9 @@ data-broker listings and dark-web breach hits — and records what it finds.
    agent open data-broker removal/opt-out requests for anything Serus marks
    removable. It is **off by default** — removals are outward-facing and spend
    Serus credits, so they stay opt-in.
+5. *(Optional)* add the **`SERUS_ALERT_WEBHOOK`** secret (e.g. a Slack/Teams
+   incoming webhook) to receive an aggregate alert when new high/critical
+   exposures appear or a removed item reappears.
 
 Without `SERUS_API_KEY` the agent is a no-op (exits 0, changes nothing).
 

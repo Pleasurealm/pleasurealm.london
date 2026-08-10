@@ -33,6 +33,8 @@ jobs:
           SERUS_SUBJECTS_JSON: ${{ secrets.SERUS_SUBJECTS_JSON }}
           # Optional: set to "true" in repo variables to let Serus open removals.
           SERUS_AUTO_REMOVE: ${{ vars.SERUS_AUTO_REMOVE }}
+          # Optional: aggregate-only alert (no PII) on new high/critical or reappearances.
+          SERUS_ALERT_WEBHOOK: ${{ secrets.SERUS_ALERT_WEBHOOK }}
           # Raw masked findings go here — uploaded privately below, never committed.
           SERUS_RAW_OUT: ${{ runner.temp }}/serus-raw.json
         run: node scripts/serus-scan.mjs
@@ -46,14 +48,15 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
-      - name: Commit aggregate summary if changed
+      - name: Commit aggregate summary + monitoring state if changed
         run: |
-          if [[ -n "$(git status --porcelain data/exposure.json)" ]]; then
+          FILES="data/exposure.json data/exposure-history.json data/exposure-state.json"
+          if [[ -n "$(git status --porcelain $FILES)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/exposure.json
+            git add $FILES
             git commit -m "chore: exposure scan $(date -u +%Y-%m-%d)"
             git push
           else
-            echo "No change to data/exposure.json."
+            echo "No change to exposure aggregates."
           fi
