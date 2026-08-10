@@ -13,11 +13,37 @@ Rightmove/Zoopla/OnTheMarket block automated scraping and offer no free API, so 
 listings onto this page would be both fragile and against their terms. Live deep-links give you
 genuinely current results with zero risk — the search happens in your browser, on the portal.
 
+## The list
+
+`index.html` is a filterable **list** — one row per station, grouped by Elizabeth line branch,
+with a search box that filters by station, area, or address. Each row carries the three live
+portal buttons.
+
+### Real listing rows (optional)
+
+The page is **data-ready**: if `data/listings.json` exists, each station shows actual property
+rows (price / beds / type / address / agent / link, sorted by price) and the header shows a total
+count. Without that file the list stays in live-search mode.
+
+To populate real rows automatically every day, connect the [PropertyData API](https://propertydata.co.uk/api)
+(legitimate, keyed, ~£28/mo with a free trial — it won't IP-block the CI runner the way scraping does):
+
+1. Get an API key from PropertyData.
+2. Add it as a repo secret named **`PROPERTYDATA_KEY`** (Settings → Secrets and variables → Actions).
+
+That's it — the daily job runs `scripts/fetch-listings.mjs`, writes `data/listings.json`, and the
+list fills with live rows. If PropertyData changes its endpoint or field names, adjust `ENDPOINT`
+and `mapListing()` in that script. Nothing overwrites good data unless at least one station returns
+rows.
+
+> Scraping Rightmove/Zoopla directly is deliberately **not** implemented: it breaches their terms
+> and their anti-bot blocks datacenter IPs, so a CI scraper returns nothing without a paid proxy.
+
 ## "Updates every day"
 
-`.github/workflows/daily-refresh.yml` runs every morning (06:17 UTC), rebuilds `index.html`,
-refreshes the **Last refreshed** date stamp, and commits any change. It's the daily heartbeat;
-the searches themselves are live on every click.
+`.github/workflows/daily-refresh.yml` runs every morning (06:17 UTC): it fetches listings (if a key
+is set), rebuilds `index.html`, refreshes the **Last refreshed** stamp, and commits any change. The
+portal links are live on every click regardless.
 
 ## Editing the search
 

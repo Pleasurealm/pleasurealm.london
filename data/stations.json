@@ -14,9 +14,9 @@
       "blurb": "The affordable, direct run into Canary Wharf. Your headline area.",
       "primary": true,
       "stations": [
-        { "name": "Abbey Wood", "toCanaryWharf": 14, "note": "Elizabeth line terminus. Best value 3/4-bed houses in this whole search." },
-        { "name": "Woolwich", "toCanaryWharf": 11, "note": "Riverside regeneration around Woolwich Arsenal; terraces just south of the station." },
-        { "name": "Custom House", "toCanaryWharf": 6, "note": "Closest affordable stop to the Wharf — houses are scarce here, mostly new-build flats." }
+        { "name": "Abbey Wood", "outcode": "SE2", "toCanaryWharf": 14, "note": "Elizabeth line terminus. Best value 3/4-bed houses in this whole search." },
+        { "name": "Woolwich", "outcode": "SE18", "toCanaryWharf": 11, "note": "Riverside regeneration around Woolwich Arsenal; terraces just south of the station." },
+        { "name": "Custom House", "outcode": "E16", "toCanaryWharf": 6, "note": "Closest affordable stop to the Wharf — houses are scarce here, mostly new-build flats." }
       ]
     },
     {
@@ -25,19 +25,19 @@
       "blurb": "Every stop runs direct to Canary Wharf. Space-per-pound improves the further east you go.",
       "primary": false,
       "stations": [
-        { "name": "Stratford", "toCanaryWharf": 10, "note": "Houses are tight at £450k; look to the Forest Gate / Maryland fringes." },
-        { "name": "Maryland", "toCanaryWharf": 12, "note": "Victorian terraces; walkable to Stratford." },
-        { "name": "Forest Gate", "toCanaryWharf": 14, "note": "Popular terraced streets, strong value for 3-beds." },
-        { "name": "Manor Park", "toCanaryWharf": 16, "note": "Larger Edwardian houses; some 4-beds within budget." },
-        { "name": "Ilford", "toCanaryWharf": 19, "note": "Wide stock of 3/4-bed terraces and semis." },
-        { "name": "Seven Kings", "toCanaryWharf": 21, "note": "Family terraces, good value." },
-        { "name": "Goodmayes", "toCanaryWharf": 23, "note": "Semis and terraces, quieter streets." },
-        { "name": "Chadwell Heath", "toCanaryWharf": 25, "note": "More garden space per pound." },
-        { "name": "Romford", "toCanaryWharf": 28, "note": "Big market town; broad choice of houses." },
-        { "name": "Gidea Park", "toCanaryWharf": 30, "note": "Sought-after; 3-beds more likely than 4 at budget." },
-        { "name": "Harold Wood", "toCanaryWharf": 33, "note": "Newer estates plus older semis." },
-        { "name": "Brentwood", "toCanaryWharf": 37, "note": "Essex commuter town; budget stretches to semis." },
-        { "name": "Shenfield", "toCanaryWharf": 41, "note": "Eastern terminus; most space per pound on the line." }
+        { "name": "Stratford", "outcode": "E15", "toCanaryWharf": 10, "note": "Houses are tight at £450k; look to the Forest Gate / Maryland fringes." },
+        { "name": "Maryland", "outcode": "E15", "toCanaryWharf": 12, "note": "Victorian terraces; walkable to Stratford." },
+        { "name": "Forest Gate", "outcode": "E7", "toCanaryWharf": 14, "note": "Popular terraced streets, strong value for 3-beds." },
+        { "name": "Manor Park", "outcode": "E12", "toCanaryWharf": 16, "note": "Larger Edwardian houses; some 4-beds within budget." },
+        { "name": "Ilford", "outcode": "IG1", "toCanaryWharf": 19, "note": "Wide stock of 3/4-bed terraces and semis." },
+        { "name": "Seven Kings", "outcode": "IG3", "toCanaryWharf": 21, "note": "Family terraces, good value." },
+        { "name": "Goodmayes", "outcode": "IG3", "toCanaryWharf": 23, "note": "Semis and terraces, quieter streets." },
+        { "name": "Chadwell Heath", "outcode": "RM6", "toCanaryWharf": 25, "note": "More garden space per pound." },
+        { "name": "Romford", "outcode": "RM1", "toCanaryWharf": 28, "note": "Big market town; broad choice of houses." },
+        { "name": "Gidea Park", "outcode": "RM2", "toCanaryWharf": 30, "note": "Sought-after; 3-beds more likely than 4 at budget." },
+        { "name": "Harold Wood", "outcode": "RM3", "toCanaryWharf": 33, "note": "Newer estates plus older semis." },
+        { "name": "Brentwood", "outcode": "CM14", "toCanaryWharf": 37, "note": "Essex commuter town; budget stretches to semis." },
+        { "name": "Shenfield", "outcode": "CM15", "toCanaryWharf": 41, "note": "Eastern terminus; most space per pound on the line." }
       ]
     },
     {
@@ -46,12 +46,12 @@
       "blurb": "Also direct to Canary Wharf. Outer stops where a £450k house is realistic.",
       "primary": false,
       "stations": [
-        { "name": "Southall", "toCanaryWharf": 41, "note": "Terraces and semis; strong value." },
-        { "name": "Hayes & Harlington", "toCanaryWharf": 45, "slug": "hayes-and-harlington", "note": "3-bed terraces within budget." },
-        { "name": "West Drayton", "toCanaryWharf": 48, "note": "Semis and estates near the station." },
-        { "name": "Slough", "toCanaryWharf": 54, "note": "Wide choice; budget reaches semis." },
-        { "name": "Twyford", "toCanaryWharf": 66, "note": "Village feel; 3-beds achievable." },
-        { "name": "Reading", "toCanaryWharf": 70, "note": "Western terminus; more house for the money." }
+        { "name": "Southall", "outcode": "UB1", "toCanaryWharf": 41, "note": "Terraces and semis; strong value." },
+        { "name": "Hayes & Harlington", "outcode": "UB3", "slug": "hayes-and-harlington", "toCanaryWharf": 45, "note": "3-bed terraces within budget." },
+        { "name": "West Drayton", "outcode": "UB7", "toCanaryWharf": 48, "note": "Semis and estates near the station." },
+        { "name": "Slough", "outcode": "SL1", "toCanaryWharf": 54, "note": "Wide choice; budget reaches semis." },
+        { "name": "Twyford", "outcode": "RG10", "toCanaryWharf": 66, "note": "Village feel; 3-beds achievable." },
+        { "name": "Reading", "outcode": "RG1", "toCanaryWharf": 70, "note": "Western terminus; more house for the money." }
       ]
     }
   ]
