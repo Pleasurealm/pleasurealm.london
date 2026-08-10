@@ -1,0 +1,11 @@
+{
+  "updated": null,
+  "source": "serus",
+  "status": "pending-first-scan",
+  "totalExposures": 0,
+  "highestSeverity": "none",
+  "bySeverity": {},
+  "autoRemove": false,
+  "subjects": [],
+  "note": "Aggregate only. No personal data is stored in this file by design. Runs once SERUS_API_KEY is set."
+}
