@@ -1,0 +1,59 @@
+name: Exposure protection scan
+
+# Daily Serus scan that protects Moses Kityamuwesi Kisubika and Pleasurealm Ltd
+# from online exposure. It commits ONLY an aggregate summary (data/exposure.json,
+# no personal data) and uploads the raw masked findings as a private,
+# short-retention artifact. No-op unless the SERUS_API_KEY secret is set.
+
+on:
+  schedule:
+    - cron: "42 5 * * *" # 05:42 UTC daily (before the site's daily refresh)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: serus-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run exposure-protection agent (no-op without SERUS_API_KEY)
+        env:
+          SERUS_API_KEY: ${{ secrets.SERUS_API_KEY }}
+          # Optional: sensitive identifiers merged in memory, never written to the repo.
+          SERUS_SUBJECTS_JSON: ${{ secrets.SERUS_SUBJECTS_JSON }}
+          # Optional: set to "true" in repo variables to let Serus open removals.
+          SERUS_AUTO_REMOVE: ${{ vars.SERUS_AUTO_REMOVE }}
+          # Raw masked findings go here — uploaded privately below, never committed.
+          SERUS_RAW_OUT: ${{ runner.temp }}/serus-raw.json
+        run: node scripts/serus-scan.mjs
+
+      - name: Upload raw findings (private artifact, 7-day retention)
+        if: ${{ hashFiles(format('{0}/serus-raw.json', runner.temp)) != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: serus-raw-findings
+          path: ${{ runner.temp }}/serus-raw.json
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Commit aggregate summary if changed
+        run: |
+          if [[ -n "$(git status --porcelain data/exposure.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/exposure.json
+            git commit -m "chore: exposure scan $(date -u +%Y-%m-%d)"
+            git push
+          else
+            echo "No change to data/exposure.json."
+          fi

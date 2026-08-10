@@ -1,0 +1,44 @@
+{
+  "_comment": [
+    "Subjects the exposure-protection agent scans for on Serus (https://serus.ai).",
+    "PUBLIC REPO — put ONLY low-sensitivity, already-public identifiers here",
+    "(legal name, company name, public domains). Do NOT commit home addresses,",
+    "phone numbers, dates of birth, or personal emails: pass those at runtime via",
+    "the SERUS_SUBJECTS_JSON repo secret, which is merged in memory and never",
+    "written to disk. See README section 'Exposure-protection agent'.",
+    "The endpoint/field adapters live in scripts/serus-scan.mjs — adjust them to",
+    "match https://docs.serus.ai/ if Serus changes its API."
+  ],
+  "redaction": "strict",
+  "scan": {
+    "types": ["osint", "darkweb"],
+    "pollSeconds": 20,
+    "timeoutSeconds": 300
+  },
+  "subjects": [
+    {
+      "id": "moses",
+      "label": "Moses Kityamuwesi Kisubika",
+      "kind": "person",
+      "identifiers": {
+        "name": "Moses Kityamuwesi Kisubika",
+        "aliases": ["Moses Kisubika", "Moses Kityamuwesi"],
+        "emails": ["moses@pleasurealm.com"],
+        "phones": [],
+        "location": "London, United Kingdom"
+      }
+    },
+    {
+      "id": "pleasurealm",
+      "label": "Pleasurealm Ltd",
+      "kind": "organisation",
+      "identifiers": {
+        "name": "Pleasurealm Ltd",
+        "aliases": ["Pleasurealm", "Pleasurealm Limited"],
+        "domains": ["pleasurealm.london", "pleasurealm.com"],
+        "emails": [],
+        "location": "London, United Kingdom"
+      }
+    }
+  ]
+}

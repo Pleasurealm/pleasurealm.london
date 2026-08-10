@@ -1,0 +1,5 @@
+# Raw Serus findings must never be committed — they contain (masked) personal
+# data. The agent only ever commits the aggregate data/exposure.json.
+serus-raw*.json
+*-raw.json
+node_modules/
